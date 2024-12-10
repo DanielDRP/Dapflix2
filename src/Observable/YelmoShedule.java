@@ -32,7 +32,7 @@ public class YelmoShedule implements Observable {
     }
 
     @Override
-    public void registerObserver(Observer observer) {
+    public void subscribe(Observer observer) {
         observers.add(observer);
     }
 
@@ -42,7 +42,7 @@ public class YelmoShedule implements Observable {
     }
 
     @Override
-    public void removeObserver(Observer observer) {
+    public void unsubscribe(Observer observer) {
         observers.remove(observer);
     }
 
@@ -57,14 +57,18 @@ public class YelmoShedule implements Observable {
             try {
                 System.out.println("Updating yelmo...");
                 List<Movie> newMovies = fetchMovies();
+                notifyObservers(); // Notifica a los observadores
+                /*
                 if (isUpdated(newMovies)) {
                     lastFetchedMovies = new ArrayList<>(newMovies); // Actualiza la lista de películas
-                    notifyObservers(); // Notifica a los observadores
+
                 }
+
+                 */
             } catch (Exception e) {
                 e.printStackTrace(); // Maneja errores (ej. API caída)
             }
-        }, 0, intervalMinutes, TimeUnit.MINUTES);
+        }, 0, intervalMinutes, TimeUnit.SECONDS);
     }
 
     @Override
@@ -85,4 +89,10 @@ public class YelmoShedule implements Observable {
          */
         return false;
     }
+
+    @Override
+    public String getSubscribers() {
+        return observers.size() + "";
+    }
+
 }

@@ -2,20 +2,22 @@ package Observer;
 
 import Data.Movie;
 
+import javax.swing.*;
 import java.util.List;
+import UI.StreamingGUI;
 
-public class User implements Observer{
+public class User implements Observer {
+    private String name;
 
-    String name;
-
-
-    public User(String name){
+    public User(String name) {
         this.name = name;
     }
 
     @Override
-    public void update(List<Movie> message) {
-        System.out.println(message); //Llamar a la ui
+    public void update(List<Movie> movies) {
+        System.out.println("UPDATE");
+        System.out.println("Recibidas nuevas películas para " + name + ": " + movies);
+        SwingUtilities.invokeLater(() -> StreamingGUI.updateMoviesForUser(name, movies));
     }
 
     @Override
