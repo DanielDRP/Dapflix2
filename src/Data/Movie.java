@@ -2,12 +2,12 @@ package Data;
 
 public class Movie {
     private final String titulo;
-    private final String clasificacion;
+    private final String info;
     private final String imagenUrl;
 
-    public Movie(String titulo, String clasificacion, String imagenUrl) {
+    public Movie(String titulo, String info, String imagenUrl) {
         this.titulo = titulo;
-        this.clasificacion = clasificacion;
+        this.info = info;
         this.imagenUrl = imagenUrl;
     }
 
@@ -15,8 +15,8 @@ public class Movie {
         return titulo;
     }
 
-    public String getClasificacion() {
-        return clasificacion;
+    public String getInfo() {
+        return info;
     }
 
     public String getImagenUrl() {
@@ -25,10 +25,10 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Pelicula{" +
-                "titulo='" + titulo + '\'' +
-                ", clasificacion='" + clasificacion + '\'' +
-                ", imagenUrl='" + imagenUrl + '\'' +
+        return "Movie{" +
+                "title='" + titulo + '\'' +
+                ", Information='" + info + '\'' +
+                ", imageUrl='" + imagenUrl + '\'' +
                 '}';
     }
 }
