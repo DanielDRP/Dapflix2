@@ -144,10 +144,8 @@ public class StreamingGUI {
     }
 
     public static void updateMoviesForUser(String userName, List<Movie> movies) {
-        System.out.println("Actualizando películas para el usuario: " + userName);
         JFrame userFrame = userWindows.get(userName);
         if (userFrame == null) {
-            System.out.println("No se encontró la ventana del usuario: " + userName);
             return;
         }
 
@@ -158,7 +156,6 @@ public class StreamingGUI {
         moviesPanel.removeAll();
 
         for (Movie movie : movies) {
-            System.out.println("Añadiendo película: " + movie.getTitulo());
             JPanel moviePanel = createMoviePanel(movie);
             moviesPanel.add(moviePanel);
         }
