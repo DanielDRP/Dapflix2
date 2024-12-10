@@ -26,7 +26,7 @@ public class StreamingGUI {
         services.put("DisneyPlus", new DisneyPlus());
 
         // Iniciar auto-recarga de cada servicio
-        services.values().forEach(service -> service.startAutoReload(60));
+        services.values().forEach(service -> service.startAutoReload(10));
 
         SwingUtilities.invokeLater(StreamingGUI::showUserManager);
     }
@@ -52,12 +52,7 @@ public class StreamingGUI {
                 if (users.containsKey(userName)) {
                     JOptionPane.showMessageDialog(userManagerFrame, "El usuario ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    User newUser = new User(userName) {
-                        @Override
-                        public void update(List<Movie> movies) {
-                            SwingUtilities.invokeLater(() -> updateMoviesForUser(userName, movies));
-                        }
-                    };
+                    User newUser = new User(userName);
                     users.put(userName, newUser);
                     userListModel.addElement(userName);
                     System.out.println("Usuario creado: " + newUser.getId());
@@ -149,14 +144,21 @@ public class StreamingGUI {
     }
 
     public static void updateMoviesForUser(String userName, List<Movie> movies) {
+        System.out.println("Actualizando películas para el usuario: " + userName);
         JFrame userFrame = userWindows.get(userName);
-        if (userFrame == null) return;
+        if (userFrame == null) {
+            System.out.println("No se encontró la ventana del usuario: " + userName);
+            return;
+        }
 
         JScrollPane scrollPane = (JScrollPane) userFrame.getContentPane().getComponent(1);
         JPanel moviesPanel = (JPanel) scrollPane.getViewport().getView();
 
+        System.out.println("Número de películas para mostrar: " + movies.size());
         moviesPanel.removeAll();
+
         for (Movie movie : movies) {
+            System.out.println("Añadiendo película: " + movie.getTitulo());
             JPanel moviePanel = createMoviePanel(movie);
             moviesPanel.add(moviePanel);
         }
@@ -164,6 +166,7 @@ public class StreamingGUI {
         moviesPanel.revalidate();
         moviesPanel.repaint();
     }
+
 
     private static JPanel createMoviePanel(Movie movie) {
         JPanel panel = new JPanel(new BorderLayout());

@@ -15,10 +15,22 @@ public class User implements Observer {
 
     @Override
     public void update(List<Movie> movies) {
-        System.out.println("UPDATE");
+        System.out.println("UPDATE"); // Esto debe imprimirse en la consola
         System.out.println("Recibidas nuevas películas para " + name + ": " + movies);
-        SwingUtilities.invokeLater(() -> StreamingGUI.updateMoviesForUser(name, movies));
+
+        // Verificar que el código se ejecute en el hilo de la interfaz gráfica
+        SwingUtilities.invokeLater(() -> {
+            try {
+                System.out.println("Hilo dentro de invokeLater: " + Thread.currentThread().getName());
+                StreamingGUI.updateMoviesForUser(name, movies);
+            } catch (Exception e) {
+                e.printStackTrace(); // Imprime cualquier excepción que pueda estar ocurriendo
+            }
+        });
+
     }
+
+
 
     @Override
     public String getId() {

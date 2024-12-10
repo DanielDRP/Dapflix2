@@ -21,17 +21,21 @@ public class Max implements Observable {
         this.scheduler = Executors.newScheduledThreadPool(1); // Un único hilo programador
     }
 
-    @Override
     public void subscribe(Observer observer) {
-        observers.add(observer);
+        if (!observers.contains(observer)) {
+            observers.add(observer);
+            System.out.println("Usuario " + observer.getId() + " suscrito.");
+        }
     }
+
 
     @Override
     public void notifyObservers() {
-
-        for (Observer o : observers){
+        for (Observer o : observers) {
             System.out.println("Notificando a: " + o.getId());
-            o.update(fetchMovies());
+            List<Movie> movies = fetchMovies();
+            System.out.println("Películas a enviar: " + movies);
+            o.update(movies);
         }
     }
 
