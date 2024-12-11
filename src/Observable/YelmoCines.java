@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class YelmoShedule implements Observable {
+public class YelmoCines implements Observable {
 
     private List<Observer> observers;
     private List<Movie> lastFetchedMovies;
@@ -19,13 +19,13 @@ public class YelmoShedule implements Observable {
     String city;
     MovieScrapper yelmo;
 
-    public YelmoShedule(){
+    public YelmoCines(){
         this("santa-cruz-tenerife");
     }
 
-    public YelmoShedule(String city){
+    public YelmoCines(String city){
         this.city = city;
-        yelmo = new MovieScrapper("/Users/dani/Documents/Uni/DAP/Libraries/chromedriver-mac-x64/chromedriver",baseUrl);
+        yelmo = new MovieScrapper("C:\\Users\\Dani\\Uni\\Libraries\\chromedriver-win64\\chromedriver.exe",baseUrl);
         this.observers = new ArrayList<>();
         this.lastFetchedMovies = new ArrayList<>();
         this.scheduler = Executors.newScheduledThreadPool(1);

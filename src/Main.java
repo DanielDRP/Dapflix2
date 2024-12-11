@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         Observable max = new Max();
         Observable netflix = new Netflix();
-        Observable yelmo = new YelmoShedule();
+        Observable yelmo = new YelmoCines();
         User u = new User("Dani");
         yelmo.subscribe(u);
         max.subscribe(u);

@@ -4,6 +4,7 @@ import Data.Movie;
 import Observable.DisneyPlus;
 import Observable.Max;
 import Observable.Netflix;
+import Observable.YelmoCines;
 import Observable.Observable;
 import Observer.User;
 
@@ -24,9 +25,10 @@ public class StreamingGUI {
         services.put("Max", new Max());
         services.put("Netflix", new Netflix());
         services.put("DisneyPlus", new DisneyPlus());
+        services.put("YelmoCines", new YelmoCines());
 
         // Iniciar auto-recarga de cada servicio
-        services.values().forEach(service -> service.startAutoReload(10));
+        services.values().forEach(service -> service.startAutoReload(30));
 
         SwingUtilities.invokeLater(StreamingGUI::showUserManager);
     }
